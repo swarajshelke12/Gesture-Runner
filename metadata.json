@@ -1,0 +1,7 @@
+{
+  "name": "Finger Runner game",
+  "description": "A 3D endless runner game where you control the character using one finger gestures captured via webcam.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
