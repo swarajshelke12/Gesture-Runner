@@ -81,14 +81,13 @@ The heaviest file in the project, using `useFrame` to run logic at 60 FPS.
 ### Installation
 
 1. **Install dependencies:**
-   bash
+   ```bash
    npm install
-2. **Start the development server:**
-   bash
-   npm run dev
-   Open your browser:http://localhost:3000
+Start the development server:
 
-The app will automatically open at http://localhost:3000
+Bash
+npm run dev
+Open your browser: Navigate to http://localhost:3000
 
 📁 File Structure
 Plaintext
@@ -114,13 +113,16 @@ Hand not detected: Ensure adequate lighting in your room. Keep your hand clearly
 
 🔮 Future Enhancements
 [ ] Audio Integration (8-bit background track & SFX)
+
 [ ] Collectible Coins/Power-ups
+
 [ ] Persistent High Scores using localStorage
+
 [ ] Mobile-friendly touch-control toggle
+
 [ ] Different robot skins
 
 📄 License & Contributing
 MIT License - feel free to use this game as you wish! Found a bug or want to improve the game? Feel free to fork and submit pull requests.
 
 Enjoy the game and have fun dodging obstacles! 🎮✨
-
