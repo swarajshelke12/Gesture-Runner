@@ -89,22 +89,26 @@ Bash
 npm run dev
 Open your browser: Navigate to http://localhost:3000
 
-📁 File Structure
-Plaintext
+### 📁 File Structure
+
+```text
 ├── src/
 │   ├── components/
-│   │   ├── gamescene.tsx      # 3D game scene and physics
-│   │   └── visioncontrol.tsx  # Hand gesture detection
-│   ├── App.tsx                # Main app component
-│   ├── constants.ts           # Game constants
-│   └── index.css              # Global styles
-├── main.tsx                   # Entry point
-├── index.html                 # HTML template
-├── vite.config.ts             # Vite configuration
-├── tsconfig.json              # TypeScript configuration
-├── tailwind.config.js         # Tailwind CSS configuration
-└── package.json               # Dependencies
-🔧 Troubleshooting
+│   │   ├── gamescene.tsx         # 3D game scene and physics
+│   │   └── visioncontrol.tsx     # Hand gesture detection
+│   ├── App.tsx                   # Main app component
+│   ├── constants.ts              # Game constants
+│   └── index.css                 # Global styles
+├── main.tsx                      # Entry point
+├── index.html                    # HTML template
+├── vite.config.ts                # Vite configuration
+├── tsconfig.json                 # TypeScript configuration
+├── tailwind.config.js            # Tailwind CSS configuration
+└── package.json                  # Dependencies
+```
+
+
+###🔧 Troubleshooting
 Camera not working: Check your browser's site settings to ensure camera permissions are granted. Make sure no other app (like Zoom or Discord) is using the camera.
 
 Low FPS / Lag: Turn on hardware acceleration in your browser settings. Close other heavy applications to free up GPU resources.
