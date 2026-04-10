@@ -31,7 +31,7 @@ function getRoast(score: number): string {
 const mc: React.CSSProperties = { fontFamily: "'Press Start 2P', monospace" };
 
 // Minecraft block button
-const MCButton = ({ onClick, children, bg = '#4a7c2f', color = '#fff' }: {
+const MCButton = ({ onClick, children, bg = '#4a7c2f', color = '#FFD700' }: {
   onClick: () => void; children: React.ReactNode; bg?: string; color?: string;
 }) => (
   <button onClick={onClick} style={{
@@ -130,7 +130,7 @@ export default function App() {
           <div style={{ ...mc, fontSize: 'clamp(7px, 1.8vw, 10px)', color: '#aaa', marginBottom: '4px' }}>
             SCORE
           </div>
-          <div style={{ ...mc, fontSize: 'clamp(14px, 4vw, 22px)', color: '#ffff' }}>
+          <div style={{ ...mc, fontSize: 'clamp(14px, 4vw, 22px)', color: '#FFD700' }}>
             {String(score).padStart(6, '0')}
           </div>
         </div>
