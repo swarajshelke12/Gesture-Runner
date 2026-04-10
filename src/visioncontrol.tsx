@@ -155,8 +155,16 @@ export const VisionControls: React.FC<VisionControlsProps> = ({ onUpdateControls
               // Store last known dot position so it STAYS on finger when tracking drops
               onUpdateControls({ lane, jump: avgY < 0.38 });
             } else {
-              recentX.current = [];
-              recentY.current = [];
+              // Hand lost — DON'T reset buffer, DON'T snap to center
+              // Ball stays at last known position until finger comes back
+              if (recentX.current.length > 0) {
+                const lastX = recentX.current[recentX.current.length - 1];
+                const lastY = recentY.current[recentY.current.length - 1];
+                dotX = (1 - lastX) * w;
+                dotY = lastY * h;
+                dotColor = 'rgba(255,255,255,0.4)';
+                dotSize = 12;
+              }
               onUpdateControls({ lane: lastLaneRef.current, jump: false });
             }
 

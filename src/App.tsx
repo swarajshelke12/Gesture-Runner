@@ -13,8 +13,8 @@ document.head.appendChild(fontLink);
 
 const ROASTS = [
   `Score {score}? That's not a score. That's your bank balance !!.`,
-  `{score} points.? That's the number of people who believe in you. I guess!!.`,
-  `Score {score}.? That's not the score. That's your IQ and it finally makes sense!!.`,
+  `{score} points.? That's the number of people who hate You, Maybe more!!.`,
+  `Score {score}.? That's not the score. That's More than your IQ !!.`,
   `{score} points.? Your WiFi has more bars than you have braincells!!.`,
   `Score {score}.? That score is more than your number of friends!!.`,
   `{score} points.? You were woundering why they avoid you? This is why!!.`,
@@ -130,7 +130,7 @@ export default function App() {
           <div style={{ ...mc, fontSize: 'clamp(7px, 1.8vw, 10px)', color: '#aaa', marginBottom: '4px' }}>
             SCORE
           </div>
-          <div style={{ ...mc, fontSize: 'clamp(14px, 4vw, 22px)', color: '#FFD700' }}>
+          <div style={{ ...mc, fontSize: 'clamp(14px, 4vw, 22px)', color: '#ffff' }}>
             {String(score).padStart(6, '0')}
           </div>
         </div>
