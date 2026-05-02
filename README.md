@@ -57,7 +57,7 @@ Got Node.js installed? Good. Let's ride.
 
 ```bash
 # 1. Clone the repository (if you haven't already)
-git clone https://github.com/yourusername/gesture-runner.git
+git clone https://github.com/swarajshelke12/Gesture-Runner.git
 cd gesture-runner
 
 # 2. Install the magic dependencies
