@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Exploding%20Head.png" alt="Exploding Head" width="80" />
   <h1>🏃‍♂️ GESTURE RUNNER 🏃‍♂️</h1>
-  <p><strong>The 3D browser game you play with your bare hands.</strong></p>
+  <p><strong>The 3D browser game you play with your finger.</strong></p>
 
   <p>
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
