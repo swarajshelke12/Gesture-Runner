@@ -15,7 +15,7 @@
 
 > **WARNING:** This game might cause you to aggressively wave at your monitor in public spaces. Play at your own risk. ⚠️
 
-Welcome to **Gesture Runner**, a next-gen browser experience that turns your webcam into a controller. Say goodbye to your keyboard and mouse. You control this Minecraft-inspired 3D runner by moving your **index finger** in real life. It's fast, it's frantic, and if you lose, the game *will* verbally abuse you.
+Welcome to **Gesture Runner**,next-gen browser experience that turns your webcam into a controller. Say goodbye to your keyboard and mouse. You control this Minecraft-inspired 3D runner by moving your **index finger** in real life. It's fast, it's frantic, and if you lose, the game *will* verbally abuse you.
 
 ## ✨ Why this is illegally good
 
