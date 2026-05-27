@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { GameScene } from './GameScene';
-import { VisionControls } from './visioncontrol';
+import { VisionControls } from './VisionControl';
 import { GameState, Difficulty } from './constants';
 import { RotateCcw } from 'lucide-react';
 
