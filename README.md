@@ -62,3 +62,30 @@ Obstacle spawn rate and speed both scale dynamically. Speed increases continuous
 | @react-three/drei | PerspectiveCamera helper |
 | MediaPipe Tasks Vision | On-device hand landmark detection |
 | Vite | Dev server and production build |
+
+---
+
+## Getting Started
+
+**Requirements:** Node.js 16+, a connected webcam, a browser with hardware acceleration enabled.
+
+```bash
+git clone https://github.com/swarajshelke12/Gesture-Runner.git
+cd Gesture-Runner
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`. Grant camera access when prompted. Raise your hand, point your index finger, and play.
+
+---
+
+## Playing
+
+1. Grant camera access when the browser prompts.
+2. Raise your hand and extend your index finger toward the camera.
+3. Move your finger left or right to switch between the three lanes.
+4. Lift your finger above the gold threshold line visible in the camera preview to jump.
+5. Avoid barriers, spinning cubes, and obsidian walls. Score increases every time an obstacle clears past you.
+
+The jump system requires you to lower your finger below the threshold before jumping again — holding up does not repeat the jump. A cooldown indicator appears at the top of the screen when jump is on cooldown.
