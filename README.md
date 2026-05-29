@@ -24,6 +24,13 @@
 
 <br/>
 
+```
+  60 FPS WebGL          On-Device ML          Zero Data Upload          3 Difficulty Modes
+  3D Voxel World        4 Obstacle Types      Particle Collisions       Real-Time Gestures
+```
+
+<br/>
+
 [**Play Now**](#getting-started) &nbsp;&bull;&nbsp; [**How It Works**](#how-the-gesture-control-works) &nbsp;&bull;&nbsp; [**Architecture**](#architecture)
 
 </div>
