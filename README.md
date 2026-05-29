@@ -1,104 +1,145 @@
-# Gesture Runner
+<div align="center">
 
-A browser-based 3D endless runner controlled entirely by hand gestures. No keyboard. No mouse. Just your index finger and a webcam.
+# GESTURE RUNNER
+
+**A 3D endless runner controlled by your hand. No keyboard. No controller. Just your index finger.**
+
+<br/>
+
+[![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![MediaPipe](https://img.shields.io/badge/MediaPipe-0F9D58?style=for-the-badge&logo=google&logoColor=white)](https://mediapipe.dev/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+<br/>
+
+> Point your index finger at the camera. Move it left or right to switch lanes.
+> Raise it above the threshold line to jump. Survive as long as you can.
+
+<br/>
+
+[**Play Now**](#getting-started) &nbsp;&bull;&nbsp; [**How It Works**](#how-the-gesture-control-works) &nbsp;&bull;&nbsp; [**Architecture**](#architecture)
+
+</div>
 
 ---
 
 ## What It Does
 
-Point your index finger at your webcam. Move it left or right to switch lanes. Raise it above a threshold line to jump. The game reads your hand position at every frame using on-device machine learning and translates it into real-time game input with no perceptible latency.
+Your webcam becomes the controller. MediaPipe's hand landmark model detects your index fingertip in real time — every frame, on-device, with no data leaving the browser. That position is mapped to lane switches and jump inputs, then fed directly into a Three.js game loop running at 60 FPS.
 
-The 3D world is rendered with Three.js at 60 FPS — procedural terrain, animated obstacles, dynamic lighting, particle effects on collision, and a voxel character with full running and jumping animation cycles. Everything runs in the browser, client-side, with no data leaving the device.
+The world is fully 3D: procedurally scrolling terrain, a voxel character with animated limbs, four distinct obstacle types with dynamic lighting, a particle system that fires on collision, and a handcrafted scene with trees, houses, mountains, and clouds.
 
 ---
 
 ## How the Gesture Control Works
 
-MediaPipe's `HandLandmarker` model runs in VIDEO mode, processing each webcam frame through a GPU-accelerated WASM inference pipeline. Landmark 8 — the index fingertip — is extracted from the normalized landmark array on every frame.
+```
+Webcam Frame  →  MediaPipe HandLandmarker  →  Landmark[8] (index fingertip)
+                                                       │
+                              ┌────────────────────────┤
+                              │   2-frame rolling avg   │
+                              └────────────────────────┘
+                                           │
+                     ┌─────────────────────┼────────────────────┐
+                     ▼                                          ▼
+             X position → Lane (L / C / R)          Y position → Jump trigger
+```
 
-A 2-frame rolling average smooths out jitter without introducing noticeable input lag. The smoothed X coordinate is mapped to three lane zones (left, center, right), and the Y coordinate is compared against a fixed threshold (38% from the top of frame) to determine jump state.
+**The key engineering decisions:**
 
-The jump input uses edge detection: a jump fires only on the transition from below-threshold to above-threshold, preventing the player from holding their finger up to continuously jump. A 0.5-second cooldown further enforces intentional input.
-
-All vision processing happens on a `requestAnimationFrame` loop running independently of the Three.js render loop. Control state is written into a shared `useRef` object, bypassing React's re-render cycle entirely. The game loop reads from that ref at render time — zero overhead.
+- **Smoothing without lag** — A 2-frame rolling average removes jitter while keeping input responsive. Larger windows introduce delay that breaks the feel.
+- **Edge detection on jump** — A jump fires only on the transition from below-threshold to above-threshold. Holding your finger up does not repeat the jump.
+- **0.5s cooldown** — Enforces intentional input and prevents accidental double-jumps.
+- **Zero-overhead control sharing** — Vision output is written into a `useRef`, not React state. The game loop reads it inside `useFrame` — no re-renders, no prop updates, no dropped frames.
+- **Graceful tracking loss** — When the hand leaves frame, the dot holds its last known position and the last lane is maintained rather than snapping to center.
 
 ---
 
 ## The 3D World
 
-Built with React Three Fiber on top of Three.js. The scene includes:
+<table>
+<tr>
+<td width="50%">
 
-- **Procedurally textured floor** — canvas-generated dirt texture with block grid lines and dashed lane dividers, UV-offset scrolling at game speed to simulate forward motion
-- **Voxel character** — a Steve-style figure with separate mesh refs for each limb, driven by sinusoidal animation tied to the game clock; arm and leg swing invert correctly during jump state
-- **Four obstacle types** — TNT-block barriers with lava base and oscillating point light; spinning cobblestone clusters; floating creeper-face cubes with bobbing and rotation; obsidian mega-walls with pulsing purple emissive planes
-- **Particle system** — GPU-driven point cloud emitter that spawns on collision, with per-particle velocity vectors and gravity simulation
-- **Scenery** — voxel oak trees with layered leaf crowns, Minecraft-style houses with pitched roofs, chimneys, and glass windows; all statically placed off-track
-- **Terrain** — canvas-generated grass texture with block patch variation scrolling on lateral planes; distant mountains with snow caps; five block-assembled cloud formations drifting independently across the sky
-- **Lighting** — warm directional sun with shadow map, ground bounce point light, and amber fill lights on both sides; atmospheric fog for depth falloff
+**Scene Elements**
+- Procedurally textured dirt floor with UV-offset scrolling
+- Voxel Steve character with sinusoidal limb animation
+- Floating clouds built from stacked block meshes
+- Voxel oak trees with layered leaf crowns
+- Minecraft-style houses with pitched roofs and glass windows
+- Snow-capped mountains in the distance with atmospheric fog
 
-Collision detection uses AABB math: per-frame distance check between player position and each obstacle's bounding volume. When a hit is detected, a particle emitter is spawned at impact position and `onGameOver` fires.
+</td>
+<td width="50%">
 
-Obstacle spawn rate and speed both scale dynamically. Speed increases continuously at 0.06 units/second² until reaching the difficulty ceiling. Spawn interval compresses from 2.2 seconds down to 1.0 second as speed climbs.
+**Obstacle Types**
+- `BARRIER` — TNT blocks on a lava bar, oscillating point light
+- `CYLINDER` — Spinning cobblestone cluster, continuous rotation
+- `CUBE` — Floating creeper face, bobbing and yaw animation
+- `MEGA_WALL` — Obsidian columns with pulsing purple emissive plane
+
+</td>
+</tr>
+</table>
+
+**Collision** uses per-frame AABB checks between player bounds and each obstacle. On hit, a 30-particle GPU point cloud spawns at impact position with randomized velocity vectors and gravity simulation.
+
+**Difficulty scaling** — Speed increases at 0.06 u/s² continuously. Spawn interval compresses from 2.2s to 1.0s as speed climbs.
 
 ---
 
 ## Difficulty Modes
 
-| Mode | Initial Speed | Ceiling |
-| :--- | :--- | :--- |
-| Slow | 15 u/s | 27 u/s |
-| Fast | 20 u/s | 32 u/s |
-| Hard | 30 u/s | 42 u/s |
+<div align="center">
 
----
+| Mode | Initial Speed | Max Speed | Feel |
+| :---: | :---: | :---: | :--- |
+| **Slow** | 15 u/s | 27 u/s | Comfortable — good for learning gestures |
+| **Fast** | 20 u/s | 32 u/s | Recommended starting point |
+| **Hard** | 30 u/s | 42 u/s | High reaction demand from the first second |
 
-## Stack
-
-| | |
-| :--- | :--- |
-| React 18 + TypeScript | Component model, state machine, type safety |
-| Three.js | WebGL renderer, geometry, materials, lighting |
-| React Three Fiber | Declarative Three.js in JSX |
-| @react-three/drei | PerspectiveCamera helper |
-| MediaPipe Tasks Vision | On-device hand landmark detection |
-| Vite | Dev server and production build |
+</div>
 
 ---
 
 ## Getting Started
 
-**Requirements:** Node.js 16+, a connected webcam, a browser with hardware acceleration enabled.
+**Prerequisites:** Node.js 16+, a connected webcam, hardware acceleration enabled in your browser.
 
 ```bash
+# Clone the repository
 git clone https://github.com/swarajshelke12/Gesture-Runner.git
 cd Gesture-Runner
+
+# Install dependencies
 npm install
+
+# Start the development server
 npm run dev
 ```
 
-Open `http://localhost:3000`. Grant camera access when prompted. Raise your hand, point your index finger, and play.
+Open `http://localhost:3000` in your browser. Grant camera access when prompted.
+
+> **Tip:** Use Chrome or Edge with hardware acceleration enabled (`chrome://settings/system`) for the best performance.
 
 ---
 
-## Playing
+## How to Play
 
-1. Grant camera access when the browser prompts.
-2. Raise your hand and extend your index finger toward the camera.
-3. Move your finger left or right to switch between the three lanes.
-4. Lift your finger above the gold threshold line visible in the camera preview to jump.
-5. Avoid barriers, spinning cubes, and obsidian walls. Score increases every time an obstacle clears past you.
+```
+1.  Grant camera access when the browser prompts
+2.  Raise your hand — extend your index finger toward the camera
+3.  Move finger LEFT  →  switch to left lane
+    Move finger RIGHT →  switch to right lane
+4.  Raise finger ABOVE the gold line in the camera preview  →  JUMP
+5.  Avoid all obstacles — score increases with each one you pass
+```
 
-The jump system requires you to lower your finger below the threshold before jumping again — holding up does not repeat the jump. A cooldown indicator appears at the top of the screen when jump is on cooldown.
-
----
-
-## Troubleshooting
-
-**Tracking feels slow or drifts** — Improve ambient lighting. Avoid backlighting (windows behind you). Keep your full hand visible and your index finger clearly extended.
-
-**Low FPS** — Enable hardware acceleration in browser settings (`chrome://settings/system`). Close any application holding the GPU (video editors, other games). Reduce background tab count.
-
-**Camera not detected** — Check that no other application (Zoom, Teams, OBS) has an exclusive lock on the webcam. Verify browser camera permissions at the site level, not just the OS level.
+> The jump requires you to **lower your finger first** before jumping again.
+> Holding up does not repeat the jump — this is intentional.
 
 ---
 
@@ -106,25 +147,68 @@ The jump system requires you to lower your finger below the threshold before jum
 
 ```
 src/
-  App.tsx          — Game state machine (MENU / PLAYING / GAME_OVER), score HUD,
-                     jump cooldown display, roast commentary on death
-  GameScene.tsx    — Three.js scene: character, obstacles, terrain, lighting,
-                     collision detection, spawn logic, particle system
-  VisionControl.tsx — MediaPipe initialization, webcam stream, per-frame
-                     landmark inference, smoothing, gesture classification
-  constants.ts     — Physics constants, lane dimensions, difficulty presets
+├── App.tsx            Game state machine: MENU → PLAYING → GAME_OVER
+│                      Score HUD, jump cooldown display, roast commentary
+│
+├── GameScene.tsx      Three.js scene graph
+│                      Character animation, obstacle spawning, AABB collision
+│                      Particle system, procedural terrain, lighting setup
+│
+├── VisionControl.tsx  MediaPipe initialization and webcam management
+│                      Per-frame landmark inference, smoothing, gesture classification
+│                      Canvas overlay with lane guides and jump threshold line
+│
+└── constants.ts       Physics constants, lane widths, gravity, difficulty speeds
 ```
 
-State flows in one direction. `VisionControl` writes gesture output into a `useRef` in `App`. `App` passes that ref down to `GameScene`. The game loop reads it inside `useFrame` — no prop drilling, no re-renders from control input.
+**Data flow:**
+
+```
+VisionControl  →  useRef (ControlState)  →  GameScene (useFrame)
+    writes               shared                    reads
+```
+
+No React state updates from gesture input. Control data never triggers a re-render. The game loop reads directly from memory on every animation frame.
+
+---
+
+## Troubleshooting
+
+| Symptom | Fix |
+| :--- | :--- |
+| Tracking drifts or loses hand | Improve lighting — avoid backlighting from windows. Keep full hand in frame. |
+| Low frame rate / stuttering | Enable hardware acceleration in browser. Close GPU-heavy apps. |
+| Camera not detected | Close Zoom, Teams, or OBS. Check browser site-level camera permissions. |
+| Jump fires accidentally | Keep your hand steady. The threshold line is at 38% from the top of the preview. |
 
 ---
 
 ## Privacy
 
-All hand tracking runs locally in the browser. No video frames, landmark data, or game telemetry are transmitted anywhere. The only external network calls are the initial fetch of the MediaPipe WASM binary and model weights from the jsdelivr CDN on first load.
+All processing is local. No video frames, landmark coordinates, or game data are sent anywhere. The only external requests are the one-time fetch of the MediaPipe WASM binary and model file from the jsdelivr CDN on first load.
 
 ---
 
-## License
+## Stack
 
-MIT
+<div align="center">
+
+| Technology | Version | Role |
+| :--- | :---: | :--- |
+| React | 18 | Component model and state machine |
+| TypeScript | 5 | Type safety across the entire codebase |
+| Three.js | 0.153 | WebGL renderer, geometry, lighting |
+| React Three Fiber | 8 | Declarative Three.js scene graph |
+| @react-three/drei | 9 | PerspectiveCamera helper |
+| MediaPipe Tasks Vision | 0.10 | On-device hand landmark detection |
+| Vite | 5 | Development server and production build |
+
+</div>
+
+---
+
+<div align="center">
+
+MIT License &nbsp;&bull;&nbsp; Built by [swarajshelke12](https://github.com/swarajshelke12)
+
+</div>
