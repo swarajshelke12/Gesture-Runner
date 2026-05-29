@@ -14,6 +14,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 [![Runs in Browser](https://img.shields.io/badge/Runs_in-Browser-blue?style=for-the-badge&logo=googlechrome&logoColor=white)]()
 [![No Install](https://img.shields.io/badge/No_Install_Required-green?style=for-the-badge)]()
+[![Stars](https://img.shields.io/github/stars/swarajshelke12/Gesture-Runner?style=for-the-badge&color=gold)](https://github.com/swarajshelke12/Gesture-Runner/stargazers)
+[![Webcam Required](https://img.shields.io/badge/Webcam-Required-red?style=for-the-badge&logo=camera&logoColor=white)]()
 
 <br/>
 
