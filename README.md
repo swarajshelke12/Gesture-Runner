@@ -12,6 +12,8 @@
 [![MediaPipe](https://img.shields.io/badge/MediaPipe-0F9D58?style=for-the-badge&logo=google&logoColor=white)](https://mediapipe.dev/)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+[![Runs in Browser](https://img.shields.io/badge/Runs_in-Browser-blue?style=for-the-badge&logo=googlechrome&logoColor=white)]()
+[![No Install](https://img.shields.io/badge/No_Install_Required-green?style=for-the-badge)]()
 
 <br/>
 
