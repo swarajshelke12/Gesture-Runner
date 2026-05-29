@@ -116,3 +116,15 @@ src/
 ```
 
 State flows in one direction. `VisionControl` writes gesture output into a `useRef` in `App`. `App` passes that ref down to `GameScene`. The game loop reads it inside `useFrame` — no prop drilling, no re-renders from control input.
+
+---
+
+## Privacy
+
+All hand tracking runs locally in the browser. No video frames, landmark data, or game telemetry are transmitted anywhere. The only external network calls are the initial fetch of the MediaPipe WASM binary and model weights from the jsdelivr CDN on first load.
+
+---
+
+## License
+
+MIT
