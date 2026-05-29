@@ -89,3 +89,30 @@ Open `http://localhost:3000`. Grant camera access when prompted. Raise your hand
 5. Avoid barriers, spinning cubes, and obsidian walls. Score increases every time an obstacle clears past you.
 
 The jump system requires you to lower your finger below the threshold before jumping again — holding up does not repeat the jump. A cooldown indicator appears at the top of the screen when jump is on cooldown.
+
+---
+
+## Troubleshooting
+
+**Tracking feels slow or drifts** — Improve ambient lighting. Avoid backlighting (windows behind you). Keep your full hand visible and your index finger clearly extended.
+
+**Low FPS** — Enable hardware acceleration in browser settings (`chrome://settings/system`). Close any application holding the GPU (video editors, other games). Reduce background tab count.
+
+**Camera not detected** — Check that no other application (Zoom, Teams, OBS) has an exclusive lock on the webcam. Verify browser camera permissions at the site level, not just the OS level.
+
+---
+
+## Architecture
+
+```
+src/
+  App.tsx          — Game state machine (MENU / PLAYING / GAME_OVER), score HUD,
+                     jump cooldown display, roast commentary on death
+  GameScene.tsx    — Three.js scene: character, obstacles, terrain, lighting,
+                     collision detection, spawn logic, particle system
+  VisionControl.tsx — MediaPipe initialization, webcam stream, per-frame
+                     landmark inference, smoothing, gesture classification
+  constants.ts     — Physics constants, lane dimensions, difficulty presets
+```
+
+State flows in one direction. `VisionControl` writes gesture output into a `useRef` in `App`. `App` passes that ref down to `GameScene`. The game loop reads it inside `useFrame` — no prop drilling, no re-renders from control input.
