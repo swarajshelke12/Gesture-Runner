@@ -39,3 +39,26 @@ Built with React Three Fiber on top of Three.js. The scene includes:
 Collision detection uses AABB math: per-frame distance check between player position and each obstacle's bounding volume. When a hit is detected, a particle emitter is spawned at impact position and `onGameOver` fires.
 
 Obstacle spawn rate and speed both scale dynamically. Speed increases continuously at 0.06 units/second² until reaching the difficulty ceiling. Spawn interval compresses from 2.2 seconds down to 1.0 second as speed climbs.
+
+---
+
+## Difficulty Modes
+
+| Mode | Initial Speed | Ceiling |
+| :--- | :--- | :--- |
+| Slow | 15 u/s | 27 u/s |
+| Fast | 20 u/s | 32 u/s |
+| Hard | 30 u/s | 42 u/s |
+
+---
+
+## Stack
+
+| | |
+| :--- | :--- |
+| React 18 + TypeScript | Component model, state machine, type safety |
+| Three.js | WebGL renderer, geometry, materials, lighting |
+| React Three Fiber | Declarative Three.js in JSX |
+| @react-three/drei | PerspectiveCamera helper |
+| MediaPipe Tasks Vision | On-device hand landmark detection |
+| Vite | Dev server and production build |
