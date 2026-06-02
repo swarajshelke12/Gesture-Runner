@@ -21,11 +21,11 @@ Welcome to Gesture Runner! This guide will help you master the game step by step
 ✅ **Camera**: Any webcam (built-in or external)  
 ✅ **Browser**: Chrome, Edge, or Firefox with hardware acceleration enabled  
 ✅ **Lighting**: Good, even lighting (avoid backlighting)  
-✅ **Space**: At least 2 feet from the camera for optimal tracking
+✅ **Space**: At least 2 feet from the camera for optimal tracking 📸
 
-### Step-by-Step Setup
+### Step-by-Step Setup 🚀
 
-1. **Launch the Game**
+1. **Launch the Game** ▶️
    ```bash
    # Clone the repository if you haven't already
    git clone https://github.com/swarajshelke12/Gesture-Runner.git
@@ -34,11 +34,11 @@ Welcome to Gesture Runner! This guide will help you master the game step by step
    npm run dev
    ```
 
-2. **Grant Camera Permissions**
+2. **Grant Camera Permissions** 📷
    - Click "Allow" when prompted by your browser
    - Make sure camera access is enabled at the site level
 
-3. **Position Your Hand**
+3. **Position Your Hand** 🖐️
    - Sit 2-3 feet from the camera
    - Keep your whole hand visible
    - Rest your elbow on a surface for stability
