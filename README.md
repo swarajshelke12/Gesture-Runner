@@ -1,6 +1,6 @@
 <div align="center">
 
-# GESTURE RUNNER
+# Gesture Runner
 
 **A 3D endless runner controlled by your hand. No keyboard. No controller. Just your index finger.**
 
@@ -118,7 +118,7 @@ Webcam Frame  →  MediaPipe HandLandmarker  →  Landmark[8] (index fingertip)
 
 ## Getting Started
 
-**Prerequisites:** Node.js 16+, a connected webcam, hardware acceleration enabled in your browser.
+**Prerequisites:** Node.js 18+, a connected webcam, hardware acceleration enabled in your browser.
 
 ```bash
 # Clone the repository
