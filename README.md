@@ -220,6 +220,6 @@ All processing is local. No video frames, landmark coordinates, or game data are
 
 <div align="center">
 
-MIT License &nbsp;&bull;&nbsp; Built by [swarajshelke12](https://github.com/swarajshelke12)
+MIT License &nbsp;&bull;&nbsp; Built by [swarajshelke12](https://github.com/swarajshelke12) &nbsp;&bull;&nbsp; © 2024
 
 </div>
