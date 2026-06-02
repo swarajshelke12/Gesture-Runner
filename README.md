@@ -134,7 +134,7 @@ npm run dev
 
 Open `http://localhost:3000` in your browser. Grant camera access when prompted.
 
-> **Tip:** Use Chrome or Edge with hardware acceleration enabled (`chrome://settings/system`) for the best performance.
+> **Tip:** Use Chrome, Edge, or Firefox with hardware acceleration enabled (`chrome://settings/system`) for optimal performance.
 
 ---
 
