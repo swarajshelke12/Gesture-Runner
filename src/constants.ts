@@ -9,10 +9,7 @@ export interface ControlState {
   jump: boolean;
 }
 
-// These were missing, causing the crash!
 export const LANE_WIDTH = 3.0;
-export const PLAYER_SPEED_INITIAL = 15.0;
-export const PLAYER_SPEED_MAX = 35.0;
 export const GRAVITY = 40.0;
 export const SPAWN_DISTANCE = 60.0;
 

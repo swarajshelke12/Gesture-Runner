@@ -3,13 +3,6 @@ import { Canvas } from '@react-three/fiber';
 import { GameScene } from './GameScene';
 import { VisionControls } from './VisionControl';
 import { GameState, Difficulty } from './constants';
-import { RotateCcw } from 'lucide-react';
-
-// Inject Minecraft font
-const fontLink = document.createElement('link');
-fontLink.href = 'https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap';
-fontLink.rel = 'stylesheet';
-document.head.appendChild(fontLink);
 
 const ROASTS = [
   `Score {score}? That's not a score. That's your bank balance !!.`,

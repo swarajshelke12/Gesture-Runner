@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FilesetResolver, HandLandmarker } from '@mediapipe/tasks-vision';
-import { ControlState } from '../constants';
+import { ControlState } from './constants';
 
 interface VisionControlsProps {
   onUpdateControls: (controls: ControlState) => void;
